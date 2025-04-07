@@ -17,20 +17,20 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/synthetic-sniffer"]
 
-  Deploy to Cloud Run (optional - uncomment if you want to deploy to Cloud Run)
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  # Deploy to Cloud Run (optional - uncomment if you want to deploy to Cloud Run)
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
     args:
-      - 'run'
-      - 'deploy'
-      - 'synthetic-sniffer'
-      - '--image'
-      - 'gcr.io/$PROJECT_ID/synthetic-sniffer'
-      - '--region'
-      - 'us-central1'
-      - '--platform'
-      - 'managed'
-      - '--allow-unauthenticated'
+      - "run"
+      - "deploy"
+      - "synthetic-sniffer"
+      - "--image"
+      - "gcr.io/$PROJECT_ID/synthetic-sniffer"
+      - "--region"
+      - "us-central1"
+      - "--platform"
+      - "managed"
+      - "--allow-unauthenticated"
 
 availableSecrets:
   secretManager:
