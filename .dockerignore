@@ -1,0 +1,65 @@
+# Git
+.git
+.gitignore
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local development
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# GCP credentials (these should be handled securely)
+gcp-credentials/
+*.json
+!package.json
+!package-lock.json
+
+# Cloud Build files
+cloudbuild.yaml
+.gcloudignore
+CLOUD_BUILD.md
+setup_cloud_build.bat 

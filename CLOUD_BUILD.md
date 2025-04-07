@@ -17,6 +17,7 @@ Run the following commands to enable the necessary Google Cloud APIs:
 gcloud services enable cloudbuild.googleapis.com
 gcloud services enable containerregistry.googleapis.com
 gcloud services enable run.googleapis.com  # If deploying to Cloud Run
+gcloud services enable secretmanager.googleapis.com  # For storing credentials
 ```
 
 ## Step 2: Set Up Cloud Build Trigger
@@ -91,6 +92,11 @@ availableSecrets:
 
 images:
   - "gcr.io/$PROJECT_ID/synthetic-sniffer"
+
+# Explicitly specify that we want to use Docker for building
+options:
+  machineType: "E2_HIGHCPU_8"
+  logging: CLOUD_LOGGING_ONLY
 ```
 
 ## Step 4: Test Your Cloud Build Configuration
@@ -105,9 +111,51 @@ If you want to deploy your application to Cloud Run, uncomment the deployment st
 
 ## Troubleshooting
 
-- **Build Failures**: Check the build logs in the Cloud Build console
-- **Authentication Issues**: Ensure your service account has the necessary permissions
-- **Docker Build Issues**: Test your Dockerfile locally before pushing to Cloud Build
+### Common Errors
+
+#### "invalid app path 'main': evaluate symlink: lstat main: no such file or directory"
+
+This error occurs when Cloud Build tries to use Cloud Native Buildpacks instead of Docker. To fix this:
+
+1. Make sure your `cloudbuild.yaml` file explicitly uses Docker for building:
+
+   ```yaml
+   steps:
+     - name: "gcr.io/cloud-builders/docker"
+       args: ["build", "-t", "gcr.io/$PROJECT_ID/synthetic-sniffer", "."]
+   ```
+
+2. Add the `options` section to your `cloudbuild.yaml` file:
+
+   ```yaml
+   options:
+     machineType: "E2_HIGHCPU_8"
+     logging: CLOUD_LOGGING_ONLY
+   ```
+
+3. Ensure you have a valid Dockerfile in your repository root.
+
+#### "Build failed: Docker build failed"
+
+If your Docker build fails:
+
+1. Test your Dockerfile locally first:
+
+   ```bash
+   docker build -t synthetic-sniffer .
+   ```
+
+2. Check the build logs for specific errors.
+
+3. Make sure all required files are included in your repository and not ignored by `.dockerignore`.
+
+#### "Authentication Issues"
+
+If you encounter authentication issues:
+
+1. Ensure your service account has the necessary permissions.
+2. Check that your secret is correctly set up in Secret Manager.
+3. Verify that Cloud Build has access to the secret.
 
 ## Additional Resources
 
@@ -115,3 +163,4 @@ If you want to deploy your application to Cloud Run, uncomment the deployment st
 - [Container Registry Documentation](https://cloud.google.com/container-registry/docs)
 - [Cloud Run Documentation](https://cloud.google.com/run/docs)
 - [Secret Manager Documentation](https://cloud.google.com/secret-manager/docs)
+- [Docker Documentation](https://docs.docker.com/)
