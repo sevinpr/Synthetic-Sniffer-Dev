@@ -64,6 +64,9 @@ COPY --from=build-backend /usr/local/lib/python3.9/site-packages /usr/local/lib/
 WORKDIR /app/frontend
 RUN npm install --production
 
+# Create directory for GCP credentials
+RUN mkdir -p /app/gcp-credentials
+
 # Expose ports
 EXPOSE 3000 5000
 

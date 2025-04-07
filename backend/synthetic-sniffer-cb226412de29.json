@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "synthetic-sniffer",
+  "private_key_id": "cb226412de29810040bf62e6c6fd977b1b012741",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDV09IFpuZR7ix8\nM0fguGZHXOXNrYEe6n8pruQEoZyHLGk55Vmm0amupwpIh6B6SN8h9T7BeohtgYw7\n1j+xwW7CLb/kU9wpjrR3JaympVKKlxXpO8dRG+CIhT8nvXdPuPGP0UZFPGlgB+wq\n9ofoTqExVeejnPjyCeVaVwSXJPEpDTBqp1CGKjItU++nc76KAYDg7oJn4SYW3t7y\nEhFesNLt2pynOWZ1uBH+uYf2SSAV2J1r71aBvT3ZZzDiQcQwpy5qWm+QlFUyJvaL\nfTXrKg4yCXgrYAqwhrLM/cayDCBg55b8XN+oOcEhRCNZvvI2y4zDUHLdZ18KoUQJ\ncu7hEETLAgMBAAECggEAIBNZUv25WRr4U11B8ATZWuUll9fqIaAdmTwh+kvf9isE\nUeoEq9CRuqBWG5E00oMx7Z8jXdSquHqRdbxq65hPrBM+0Np/kUBV8/WT05/DJQUL\nBWSxPoqHAROz6Js0VaIxolhLSUGJsR0fIUbAFmoNJiBz0ghPE8fGPuoEx0OEZZrN\npfzBRPrMGPoTeEfXn2Gap79EOtl01LRs5uRJvVS1K6HGsmbYgQLC5yccNgKL9u1V\npokeHJYjwLMqtM1t3d6cXkdZ0jC3BduKbPmMm8IhRR1hchEs9pkLl+s7eKwd/yJ9\nifgMftlMiV9LLtcXQ9G//XR4haLP3qMid/l2Nhc2EQKBgQDyoP4Ul2mRtI4+4tyI\np/Rix4T4Ybrgy+FyaBuHP1Kb0kqRwmi9de3kvi477CfXdySjyu/aFu0H4YTWFNSC\n9NDJABz0Q3bgvj1+9DXbB9aJQ9pyXmItMYXNFIcNjbw9xOdAqxIUY6w/dhyT2wIC\n4/wX3G5Gfbh0IQSnQJrLM9EtIwKBgQDhnH9ANcm9JdR+5FNM7DNylxVuKHp+G7HJ\nrQ9kMSr0kQE67uDitS2S8Nx0WLMBLf5onXZrk7c6w4u1cuHESSGr/IpmxH6u2IQj\nSSi+JQ7nJa8mutNXSpxTWagIb7VzOrqcP83QyntzYZHXd2M5W5XjEnZri1FXq5WN\nhbBRui1oOQKBgE4Y4g/wuMtsqci2LzRRk4lkHXnxwzxug8/WkN3U1RtQ8i2+vQYW\n+o8BZFJnbl+dew652MCDVqKNxbs/EzRf5wB759X8DTzEH3lI1Dj/ad/fFmZv2Pwh\nD6d2bw4+zBO52JHpPrWPa7c1pnc1LI2PoupvSpOoDgJbSmsnkWvM7wyvAoGBAJqg\nfOKQOu1FYUd6y9DbzkMKY6i1W4bVClwUHYlo3WzzeSlgEYev70VXiXDAXic/0671\nxPTkL9+5qCY7T5sNGGPc2SqoH79MK/xXJvJzSayIumvL/g9E1rGVsEHf9je8l6uB\nW1lvfX7N73wCmmH0cF1KCRmaSazRr9VoPDk3ZemZAoGAfAcjzZMDzE7gQ3NLR4XA\nSJfkks3bRRk/pGWiLQ3zcRWlZSUlGgKi8hfZB3f7D508hccf/46OQW8MWI3tnBb8\ngCsV3T6Z+tKFvY03qH2XzCwQtxlwHIuQPvBL+xoNQm2ileCCyzBVDQSx+TEEEzvw\nnBBeziBPVCddyopoqeKPF1w=\n-----END PRIVATE KEY-----\n",
+  "client_email": "synthetic-sniffer@synthetic-sniffer.iam.gserviceaccount.com",
+  "client_id": "106259285572320425946",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/synthetic-sniffer%40synthetic-sniffer.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

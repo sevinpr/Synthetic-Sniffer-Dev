@@ -9,6 +9,8 @@ from PIL import Image
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import io
+from google.cloud import storage
+import tempfile
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -237,28 +239,45 @@ class HDE(nn.Module):
 
 
 # --- Configuration ---
-MODEL_PATH = 'hde_model_complete.pth' # Use the correct model file name
+BUCKET_NAME = 'hde-model'  # Replace with your actual GCP bucket name
+MODEL_PATH = 'hde_model_complete.pth'  # The path to the model file in your bucket
 LATENT_DIM = 128             # Must match the trained model
 IMAGE_SIZE = 256             # Must match the trained model
+GCP_CREDENTIALS_PATH = 'synthetic-sniffer-cb226412de29.json'
 
 
-# --- Load the CORRECT Model ---
+# --- Load the CORRECT Model from GCP Bucket ---
 def load_model():
     try:
         # Instantiate the HDE model
         model = HDE(latent_dim=LATENT_DIM, image_size=IMAGE_SIZE)
-        if os.path.exists(MODEL_PATH):
-            # Load the state dict
-            # Use map_location for CPU or if GPU availability varies
-            model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
-            model.eval() # Set to evaluation mode
-            print("HDE Model loaded successfully")
+        
+        # Set up GCP credentials
+        if os.path.exists(GCP_CREDENTIALS_PATH):
+            os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = GCP_CREDENTIALS_PATH
+            print(f"Using GCP credentials from: {GCP_CREDENTIALS_PATH}")
         else:
-            print(f"Error: Model file {MODEL_PATH} not found. Cannot proceed.")
-            return None # Return None if model file is missing
+            print("Warning: GCP credentials file not found. Using default authentication method.")
+            print("Make sure you have set up authentication via gcloud CLI or environment variables.")
+        
+        # Initialize GCP Storage client
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(BUCKET_NAME)
+        blob = bucket.blob(MODEL_PATH)
+        
+        # Download the model to a temporary file
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            blob.download_to_filename(temp_file.name)
+            # Load the state dict from the temporary file
+            model.load_state_dict(torch.load(temp_file.name, map_location=torch.device('cpu')))
+            model.eval()  # Set to evaluation mode
+            print("HDE Model loaded successfully from GCP bucket")
+        
+        # Clean up the temporary file
+        os.unlink(temp_file.name)
         return model
     except Exception as e:
-        print(f"Error loading HDE model: {e}")
+        print(f"Error loading HDE model from GCP bucket: {e}")
         # Print traceback for detailed debugging if needed
         import traceback
         traceback.print_exc()

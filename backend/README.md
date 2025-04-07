@@ -10,24 +10,33 @@ This is a Flask-based backend API for the Synthetic Image Detector application, 
    pip install -r requirements.txt
    ```
 
-2. **Prepare your PyTorch model**:
+2. **Set up Google Cloud Storage authentication**:
 
-   - Place your trained `.pth` model file in the backend directory
-   - By default, the app expects the file to be named `model.pth`
-   - You can modify the `MODEL_PATH` variable in `app.py` if your model has a different name
+   - Create a service account in the Google Cloud Console with access to your storage bucket
+   - Download the JSON key file for the service account
+   - Set the environment variable to point to your credentials file:
+     ```
+     export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/service-account-key.json"
+     ```
+   - Alternatively, place the JSON key file in the `/app/gcp-credentials` directory when running in Docker
 
-3. **Customize model architecture**:
+3. **Configure the model path**:
+
+   - Update the `BUCKET_NAME` and `MODEL_PATH` variables in `app.py` to point to your model in GCP storage
+   - Example: `BUCKET_NAME = 'my-model-bucket'` and `MODEL_PATH = 'models/hde_model_complete.pth'`
+
+4. **Customize model architecture**:
 
    - The current implementation provides a simplified CNN architecture in the `GanDetector` class
    - **Important**: You must update this class to match the exact architecture of your trained model
    - If your model was saved with `torch.save(model)` instead of `torch.save(model.state_dict())`, you'll need to modify the loading code
 
-4. **Adjust preprocessing**:
+5. **Adjust preprocessing**:
 
    - Modify the `preprocess` transform in `app.py` to match the preprocessing used during your model training
    - The default preprocessing is for models trained on ImageNet
 
-5. **Run the server**:
+6. **Run the server**:
    ```
    python app.py
    ```
@@ -58,3 +67,4 @@ Accepts an image file upload and returns a prediction.
 
 - **Model Architecture Issues**: If you get a shape mismatch error, ensure your `GanDetector` class matches exactly the architecture used when training the model
 - **CUDA/CPU Issues**: The code loads the model to CPU by default. If using CUDA, modify the device in the `load_model` function
+- **GCP Authentication Issues**: Ensure your service account has the necessary permissions to access the storage bucket
